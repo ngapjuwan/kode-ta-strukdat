@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+// Fungsi untuk menukar dua nilai
+void tukar(int *a, int *b) {
+int t = *a;
+*a = *b;
+*b = t;
+}
+
+int main() {
+int n, i, j;
+int nilai[100];
+
+```
+cout << "Masukkan jumlah angka: ";
+cin >> n;
+
+cout << "Masukkan nilai angka: " << endl;
+for (i = 0; i < n; i++) {
+    cout << "Nilai ke-" << i + 1 << ": ";
+    cin >> nilai[i];
+}
+
+// Bubble sort untuk mengurutkan nilai
+for (i = 0; i < n; i++) {
+    for (j = 0; j < n - i - 1; j++) {
+        if (nilai[j] > nilai[j + 1]) {
+            tukar(&nilai[j], &nilai[j + 1]);
+        }
+    }
+}
+
+cout << "\nUrutan Nilai Terendah ke Tertinggi: " << endl;
+for (i = 0; i < n; i++) {
+    cout << "Nilai ke-" << i + 1 << ": " << nilai[i] << endl;
+}
+
+return 0;
+```
+
+}
