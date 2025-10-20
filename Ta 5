@@ -1,0 +1,104 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int key;
+    Node* left;
+    Node* right;
+    Node(int k) : key(k), left(nullptr), right(nullptr) {}
+};
+
+Node* insertNode(Node* root, int key) {
+    if (root == nullptr) {
+        return new Node(key);
+    }
+    if (key < root->key) {
+        root->left = insertNode(root->left, key);
+    } else if (key > root->key) {
+        root->right = insertNode(root->right, key);
+    }
+    return root;
+}
+
+bool searchNode(Node* root, int key) {
+    if (root == nullptr)
+        return false;
+    if (root->key == key)
+        return true;
+    else if (key < root->key)
+        return searchNode(root->left, key);
+    else
+        return searchNode(root->right, key);
+}
+
+void inorder(Node* root) {
+    if (root != nullptr) {
+        inorder(root->left);
+        cout << root->key << " ";
+        inorder(root->right);
+    }
+}
+
+void preorder(Node* root) {
+    if (root != nullptr) {
+        cout << root->key << " ";
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+void postorder(Node* root) {
+    if (root != nullptr) {
+        postorder(root->left);
+        postorder(root->right);
+        cout << root->key << " ";
+    }
+}
+
+int main() {
+    Node* root = nullptr;
+    int pilih, nilai;
+
+    do {
+        cout << "\n=== PROGRAM BINARY SEARCH TREE ===\n";
+        cout << "1. Insert node\n";
+        cout << "2. Cari nilai\n";
+        cout << "3. Tampilkan traversal (Inorder, Preorder, Postorder)\n";
+        cout << "4. Keluar\n";
+        cout << "Pilih menu: ";
+        cin >> pilih;
+
+        switch (pilih) {
+            case 1:
+                cout << "Masukkan nilai: ";
+                cin >> nilai;
+                root = insertNode(root, nilai);
+                cout << "Node " << nilai << " berhasil dimasukkan!\n";
+                break;
+            case 2:
+                cout << "Masukkan nilai yang ingin dicari: ";
+                cin >> nilai;
+                if (searchNode(root, nilai))
+                    cout << "Nilai " << nilai << " ditemukan di dalam BST.\n";
+                else
+                    cout << "Nilai " << nilai << " tidak ditemukan.\n";
+                break;
+            case 3:
+                cout << "\nInorder  : ";
+                inorder(root);
+                cout << "\nPreorder : ";
+                preorder(root);
+                cout << "\nPostorder: ";
+                postorder(root);
+                cout << "\n";
+                break;
+            case 4:
+                cout << "Program selesai.\n";
+                break;
+            default:
+                cout << "Pilihan tidak valid!\n";
+        }
+    } while (pilih != 4);
+
+    return 0;
+}
